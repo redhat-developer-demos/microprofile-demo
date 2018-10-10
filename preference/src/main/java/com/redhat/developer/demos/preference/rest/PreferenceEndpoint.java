@@ -4,6 +4,7 @@ package com.redhat.developer.demos.preference.rest;
 import com.redhat.developer.demos.preference.rest.client.*;
 import org.apache.commons.lang.exception.*;
 import org.eclipse.microprofile.config.inject.*;
+import org.eclipse.microprofile.opentracing.*;
 import org.eclipse.microprofile.rest.client.*;
 import org.slf4j.*;
 
@@ -31,6 +32,7 @@ public class PreferenceEndpoint {
 
     @GET
     @Produces("text/plain")
+    @Traced
     public Response doGet() throws MalformedURLException {
         URL url = new URL(recommendationURL);
         RecommendationService recommendationService = RestClientBuilder

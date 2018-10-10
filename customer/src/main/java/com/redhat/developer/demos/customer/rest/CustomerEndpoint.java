@@ -4,21 +4,26 @@ import com.redhat.developer.demos.customer.rest.client.*;
 
 import org.apache.commons.lang.exception.*;
 import org.eclipse.microprofile.config.inject.*;
+import org.eclipse.microprofile.openapi.annotations.*;
+import org.eclipse.microprofile.openapi.annotations.media.*;
+import org.eclipse.microprofile.openapi.annotations.parameters.*;
+import org.eclipse.microprofile.openapi.annotations.responses.*;
+import org.eclipse.microprofile.openapi.annotations.tags.*;
+import org.eclipse.microprofile.opentracing.*;
 import org.eclipse.microprofile.rest.client.*;
 import org.slf4j.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.*;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
 import java.net.*;
 
 import static java.lang.String.format;
 
 @ApplicationScoped
 @Path("/")
+@Tag(name = "Customer Service", description = "Get Customer, Preference and Recommendation")
 public class CustomerEndpoint {
 	@Inject
 	@ConfigProperty(name = "preference.api.url",
@@ -30,7 +35,11 @@ public class CustomerEndpoint {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@GET
-	@Produces("text/plain")
+	@Traced
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Operation(description = "Get Customer, Preference and Recommendation")
+    @APIResponse(content = @Content(mediaType = MediaType.TEXT_PLAIN))
 	public Response doGet() throws MalformedURLException {
 		URL url = new URL(recommendationURL);
 		PreferenceService preferenceService = RestClientBuilder

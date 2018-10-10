@@ -1,5 +1,6 @@
 package com.redhat.developer.demos.recommendation.rest;
 
+import org.eclipse.microprofile.opentracing.*;
 import org.slf4j.*;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -36,6 +37,7 @@ public class RecommendationEndpoint {
 
 	@GET
 	@Produces("text/plain")
+	@Traced
 	public Response doGet() {
 		logger.info(String.format("recommendation request from %s: %d", HOSTNAME, count));
 		if (misbehave) {

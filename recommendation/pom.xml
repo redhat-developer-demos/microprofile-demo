@@ -20,6 +20,7 @@
         <configuration>
           <properties>
             <swarm.port.offset>200</swarm.port.offset>
+            <swarm.jaeger.service-name>recommendation</swarm.jaeger.service-name>
           </properties>
         </configuration>
       </plugin>
