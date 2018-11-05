@@ -6,7 +6,6 @@ import org.apache.commons.lang.exception.*;
 import org.eclipse.microprofile.config.inject.*;
 import org.eclipse.microprofile.openapi.annotations.*;
 import org.eclipse.microprofile.openapi.annotations.media.*;
-import org.eclipse.microprofile.openapi.annotations.parameters.*;
 import org.eclipse.microprofile.openapi.annotations.responses.*;
 import org.eclipse.microprofile.openapi.annotations.tags.*;
 import org.eclipse.microprofile.opentracing.*;
@@ -25,10 +24,11 @@ import static java.lang.String.format;
 @Path("/")
 @Tag(name = "Customer Service", description = "Get Customer, Preference and Recommendation")
 public class CustomerEndpoint {
+
 	@Inject
 	@ConfigProperty(name = "preference.api.url",
 			defaultValue = "http://localhost:8180/")
-	private String recommendationURL;
+	private String preferenceURL;
 
 	private static final String RESPONSE_STRING_FORMAT = "customer => %s\n";
 
@@ -41,7 +41,7 @@ public class CustomerEndpoint {
     @Operation(description = "Get Customer, Preference and Recommendation")
     @APIResponse(content = @Content(mediaType = MediaType.TEXT_PLAIN))
 	public Response doGet() throws MalformedURLException {
-		URL url = new URL(recommendationURL);
+		URL url = new URL(preferenceURL);
 		PreferenceService preferenceService = RestClientBuilder
 				.newBuilder()
 				.baseUrl(url)

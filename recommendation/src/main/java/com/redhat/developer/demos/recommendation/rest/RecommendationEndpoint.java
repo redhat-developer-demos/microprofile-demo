@@ -1,5 +1,7 @@
 package com.redhat.developer.demos.recommendation.rest;
 
+import org.eclipse.microprofile.faulttolerance.*;
+import org.eclipse.microprofile.metrics.annotation.*;
 import org.eclipse.microprofile.opentracing.*;
 import org.slf4j.*;
 
@@ -38,6 +40,7 @@ public class RecommendationEndpoint {
 	@GET
 	@Produces("text/plain")
 	@Traced
+    @Counted(name = "recommendationCount", absolute = true, monotonic = true, description = "Number of time recommendation is requested")
 	public Response doGet() {
 		logger.info(String.format("recommendation request from %s: %d", HOSTNAME, count));
 		if (misbehave) {
@@ -55,6 +58,7 @@ public class RecommendationEndpoint {
 					.build();
 		}
 	}
+
 
     @GET
     @Produces("text/plain")
