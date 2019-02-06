@@ -36,6 +36,7 @@ public class PreferenceEndpoint {
     @Produces("text/plain")
     @Traced
     @Retry(maxRetries = 5)
+    @Timeout
     @Fallback(fallbackMethod = "fallback")
     public Response doGet() throws MalformedURLException {
         URL url = new URL(recommendationURL);
@@ -44,29 +45,12 @@ public class PreferenceEndpoint {
                 .baseUrl(url)
                 .register(RecommendationExceptionWrapper.class)
                 .build(RecommendationService.class);
-        try {
             return Response.ok(format(RESPONSE_STRING_FORMAT, recommendationService.getRecommendation())).build();
-        } catch (RecommendationException e) {
-            return Response
-                    .status(Response.Status.SERVICE_UNAVAILABLE)
-                    .entity(format(RESPONSE_STRING_FORMAT,
-                            format("Error: %d - %s", e.getStatus(), e.getMessage()))
-                    )
-                    .build();
-        } catch (Exception e) {
-            return Response
-                    .status(Response.Status.SERVICE_UNAVAILABLE)
-                    .entity(format(RESPONSE_STRING_FORMAT,
-                            format("Error: %s", ExceptionUtils.getRootCause(e)))
-                    )
-                    .build();
-
-        }
     }
 
     public Response fallback(){
         logger.info("Fallback method invoked");
-        return Response.ok("FallBAck method").build();
+        return Response.ok("FallBack method").build();
     }
 
 }

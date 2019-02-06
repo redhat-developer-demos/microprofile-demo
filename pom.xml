@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <version.thorntail>2.2.1.Final</version.thorntail>
+        <version.thorntail>2.3.0.Final</version.thorntail>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -37,12 +37,11 @@
                 <version>${version.thorntail}</version>
                 <configuration>
                     <properties>
-                        <swarm.jaeger.enable-b3-header-propagation>true</swarm.jaeger.enable-b3-header-propagation>
-                        <swarm.jaeger.remote-reporter-http-endpoint>http://localhost:14268/api/traces
-                        </swarm.jaeger.remote-reporter-http-endpoint>
-                        <swarm.jaeger.reporter-log-spans>true</swarm.jaeger.reporter-log-spans>
-                        <swarm.jaeger.sampler-type>const</swarm.jaeger.sampler-type>
-                        <swarm.jaeger.sampler-parameter>1</swarm.jaeger.sampler-parameter>
+                        <thorntail.jaeger.remote-reporter-http-endpoint>http://localhost:14268/api/traces</thorntail.jaeger.remote-reporter-http-endpoint>
+                        <thorntail.jaeger.reporter-log-spans>true</thorntail.jaeger.reporter-log-spans>
+                        <thorntail.jaeger.sampler-type>const</thorntail.jaeger.sampler-type>
+                        <thorntail.jaeger.sampler-parameter>1</thorntail.jaeger.sampler-parameter>
+                        <thorntail.jaeger.enable-b3-header-propagation>true</thorntail.jaeger.enable-b3-header-propagation>
                     </properties>
                 </configuration>
                 <executions>
@@ -57,7 +56,10 @@
     </build>
 
     <dependencies>
-
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>microprofile</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.thorntail</groupId>
             <artifactId>microprofile-config</artifactId>
@@ -84,16 +86,16 @@
         </dependency>
         <dependency>
             <groupId>io.thorntail</groupId>
-            <artifactId>microprofile</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
             <artifactId>microprofile-jwt</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>microprofile-opentracing</artifactId>
         </dependency>
         <dependency>
             <groupId>io.thorntail</groupId>
