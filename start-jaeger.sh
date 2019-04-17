@@ -8,4 +8,4 @@ docker run \
     -p16686:16686 \
     -p14268:14268 \
     --name=jaeger \
-    jaegertracing/all-in-one:1.9
+    jaegertracing/all-in-one:latest
