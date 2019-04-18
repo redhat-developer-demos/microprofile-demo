@@ -36,6 +36,7 @@ public class CustomerEndpoint {
 
 	@GET
 	@Traced
+	@Produces(MediaType.TEXT_PLAIN)
     @Operation(description = "Get Customer, Preference and Recommendation")
 	public Response doGet() throws MalformedURLException {
 		URL url = new URL(preferenceURL);

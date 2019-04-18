@@ -14,7 +14,7 @@ import org.slf4j.*;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.*;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.net.*;
 
 import static java.lang.String.format;
@@ -35,7 +35,7 @@ public class PreferenceEndpoint {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GET
-    @Produces("text/plain")
+    @Produces(MediaType.TEXT_PLAIN)
     @Traced
     @Retry(maxRetries = 5)
     @Timeout
